@@ -2,7 +2,7 @@ var Fiber = require('fibers');
 Fiber(function () {
 
   var path = require('path');
-var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
+  var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
   var _ = require('underscore');
   var deploy = require(path.join(__dirname, 'deploy'));
   var fs = require("fs");
@@ -71,7 +71,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
 
   var find_mongo_port = function (cmd, callback) {
     var app_dir = require_project(cmd);
-  var mongo_runner = require(path.join(__dirname, '..', 'lib', 'mongo_runner.js'));
+    var mongo_runner = require(path.join(__dirname, '..', 'lib', 'mongo_runner.js'));
     mongo_runner.find_mongo_port(app_dir, callback);
   };
 
@@ -121,9 +121,9 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
             .boolean('production')
             .describe('production', 'Run in production mode. Minify and bundle CSS and JS files.')
             .boolean('debug')
-      .describe('debug', 'Pass --debug to node.js to enable node-inspector debugging.')
+            .describe('debug', 'Pass --debug to node.js to enable node-inspector debugging.')
             .boolean('debug-brk')
-      .describe('debug-brk', 'Pass --debug-brk to node.js to enable debugging and break on the first line.')
+            .describe('debug-brk', 'Pass --debug-brk to node.js to enable debugging and break on the first line.')
             .describe('settings',  'Set optional data for Meteor.settings on the server')
             .boolean('once')
             .usage(
@@ -154,9 +154,9 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
       var app_dir = path.resolve(require_project("run", true)); // app or package
 
       var bundle_opts = { no_minify: !new_argv.production, symlink_dev_bundle: true };
-    var debugStatus = "OFF";
-    if (new_argv['debug']) debugStatus = "DEBUG";
-    if (new_argv['debug-brk']) debugStatus = "BREAK";
+      var debugStatus = "OFF";
+      if (new_argv['debug']) debugStatus = "DEBUG";
+      if (new_argv['debug-brk']) debugStatus = "BREAK";
       runner.run(app_dir, bundle_opts, new_argv.port, new_argv.once, settings, debugStatus);
     }
   });
@@ -195,10 +195,10 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
       var new_argv = opt.argv;
       var appname;
 
-       var example_dir = path.join(__dirname, '..', '..', 'examples');
-       var examples = _.reject(fs.readdirSync(example_dir), function (e) {
-       return (e === 'unfinished' || e === 'other');
-       });
+      var example_dir = path.join(__dirname, '..', '..', 'examples');
+      var examples = _.reject(fs.readdirSync(example_dir), function (e) {
+        return (e === 'unfinished' || e === 'other');
+      });
 
       if (argv._.length === 1) {
         appname = argv._[0];
@@ -306,8 +306,8 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
       }
 
       var app_dir = require_project('add');
-    var packages = require(path.join(__dirname, '..', 'lib', 'packages.js'));
-    var project = require(path.join(__dirname, '..', 'lib', 'project.js'));
+      var packages = require(path.join(__dirname, '..', 'lib', 'packages.js'));
+      var project = require(path.join(__dirname, '..', 'lib', 'project.js'));
       var all = packages.list();
       var using = {};
       _.each(project.get_packages(app_dir), function (name) {
@@ -343,8 +343,8 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
       }
 
       var app_dir = require_project('remove');
-    var packages = require(path.join(__dirname, '..', 'lib', 'packages.js'));
-    var project = require(path.join(__dirname, '..', 'lib', 'project.js'));
+      var packages = require(path.join(__dirname, '..', 'lib', 'packages.js'));
+      var project = require(path.join(__dirname, '..', 'lib', 'project.js'));
       var using = {};
       _.each(project.get_packages(app_dir), function (name) {
         using[name] = true;
@@ -378,7 +378,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
 
       if (argv.using) {
         var app_dir = require_project('list --using');
-      var using = require(path.join(__dirname, '..', 'lib', 'project.js')).get_packages(app_dir);
+        var using = require(path.join(__dirname, '..', 'lib', 'project.js')).get_packages(app_dir);
 
         if (using.length) {
           _.each(using, function (name) {
@@ -395,7 +395,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
         return;
       }
 
-    var list = require(path.join(__dirname, '..', 'lib', 'packages.js')).list();
+      var list = require(path.join(__dirname, '..', 'lib', 'packages.js')).list();
       var names = _.keys(list);
       names.sort();
       var pkgs = [];
@@ -403,7 +403,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
         pkgs.push(list[name]);
       });
       process.stdout.write("\n" +
-                         require(path.join(__dirname, '..', 'lib', 'packages.js')).format_list(pkgs) +
+                           require(path.join(__dirname, '..', 'lib', 'packages.js')).format_list(pkgs) +
                            "\n");
     }
   });
@@ -437,7 +437,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
       var bundle_path = path.join(build_dir, 'bundle');
       var output_path = path.resolve(argv._[0]); // get absolute path
 
-    var bundler = require(path.join(__dirname, '..', 'lib', 'bundler.js'));
+      var bundler = require(path.join(__dirname, '..', 'lib', 'bundler.js'));
       var errors = bundler.bundle(app_dir, bundle_path);
       if (errors) {
         process.stdout.write("Errors prevented bundling:\n");
@@ -663,7 +663,7 @@ var files = require(path.join(__dirname, '..', 'lib', 'files.js'));
     }
 
     if (argv.version) {
-    var updater = require(path.join(__dirname, '..', 'lib', 'updater.js'));
+      var updater = require(path.join(__dirname, '..', 'lib', 'updater.js'));
       var sha = updater.git_sha();
 
       process.stdout.write("Meteor version " + updater.CURRENT_VERSION);
